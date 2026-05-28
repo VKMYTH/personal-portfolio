@@ -1,8 +1,17 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 function GradientBackground() {
+  const { scrollY } = useScroll();
+
+  // Each blob moves at a different rate as you scroll = parallax depth
+  const y1 = useTransform(scrollY, [0, 3000], [0, -300]);
+  const y2 = useTransform(scrollY, [0, 3000], [0, -500]);
+  const y3 = useTransform(scrollY, [0, 3000], [0, -200]);
+  const y4 = useTransform(scrollY, [0, 3000], [0, -400]);
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0a0612]">
+      {/* Deep ember (large, anchor) */}
       <motion.div
         className="absolute rounded-full blur-[120px]"
         style={{
@@ -11,16 +20,17 @@ function GradientBackground() {
           height: "700px",
           top: "-15%",
           left: "-15%",
+          y: y1,
         }}
         animate={{
           x: [0, 80, -40, 0],
-          y: [0, 120, 40, 0],
           scale: [1, 1.15, 0.95, 1],
           opacity: [0.55, 0.45, 0.6, 0.55],
         }}
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* Burnt orange (mid) */}
       <motion.div
         className="absolute rounded-full blur-[110px]"
         style={{
@@ -29,16 +39,17 @@ function GradientBackground() {
           height: "500px",
           top: "20%",
           right: "-10%",
+          y: y2,
         }}
         animate={{
           x: [0, -120, 80, 0],
-          y: [0, 100, -80, 0],
           scale: [1, 0.85, 1.2, 1],
           opacity: [0.6, 0.7, 0.5, 0.6],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* Gold (small, accent) */}
       <motion.div
         className="absolute rounded-full blur-[90px]"
         style={{
@@ -47,16 +58,17 @@ function GradientBackground() {
           height: "400px",
           bottom: "10%",
           left: "20%",
+          y: y3,
         }}
         animate={{
           x: [0, 150, -80, 0],
-          y: [0, -100, 80, 0],
           scale: [1, 1.1, 0.9, 1],
           opacity: [0.45, 0.55, 0.4, 0.45],
         }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* Peach highlight (small, top right) */}
       <motion.div
         className="absolute rounded-full blur-[80px]"
         style={{
@@ -65,16 +77,17 @@ function GradientBackground() {
           height: "350px",
           top: "5%",
           right: "20%",
+          y: y4,
         }}
         animate={{
           x: [0, -60, 90, 0],
-          y: [0, 80, 40, 0],
           scale: [1, 1.2, 0.95, 1],
           opacity: [0.4, 0.5, 0.35, 0.4],
         }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* Tron-style grid in amber */}
       <div
         className="absolute inset-0 opacity-[0.1]"
         style={{
@@ -88,6 +101,7 @@ function GradientBackground() {
         }}
       />
 
+      {/* Subtle warm scanlines */}
       <div
         className="absolute inset-0 opacity-[0.06] pointer-events-none"
         style={{
@@ -96,6 +110,7 @@ function GradientBackground() {
         }}
       />
 
+      {/* Noise / film grain */}
       <div
         className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay"
         style={{
@@ -103,6 +118,7 @@ function GradientBackground() {
         }}
       />
 
+      {/* Deep vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
